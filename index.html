@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SkillForge 90</title>
+<link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0b1530">
+<style>
+:root{--bg:#0b1530;--c:#13214a;--c2:#1b2d5e;--g:#2ee59d;--b:#3b9eff;--t:#eaf0ff;--m:#8fa3d1}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--t);font:15px/1.55 system-ui,"Segoe UI",Roboto,sans-serif;padding-bottom:72px;overflow-x:hidden}
+main{max-width:920px;margin:auto;padding:16px}
+h1{font-size:1.5rem}h2{font-size:1.2rem;margin:18px 0 8px}h3{font-size:1rem}
+.sub{color:var(--m);font-size:.85rem}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:var(--c);border-top:1px solid var(--c2);z-index:5}
+nav button{flex:1;background:none;border:0;color:var(--m);padding:10px 2px;font-size:.72rem;cursor:pointer}
+nav button b{display:block;font-size:1.25rem}nav .on{color:var(--g)}
+.card{background:var(--c);border:1px solid var(--c2);border-radius:14px;padding:14px;margin:10px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.stat b{display:block;font-size:1.4rem;color:var(--g)}
+.bar{height:9px;background:var(--c2);border-radius:9px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;border-radius:9px;transition:width .6s}
+.btn{background:linear-gradient(90deg,var(--g),var(--b));color:#06122b;border:0;border-radius:10px;padding:12px 18px;font-weight:700;cursor:pointer;min-height:44px}
+.btn.alt{background:var(--c2);color:var(--t)}
+.q{border-left:4px solid var(--g);padding:4px 12px;font-style:italic}
+.days{display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:6px}
+.d{background:var(--c);border:2px solid var(--c2);color:var(--t);border-radius:10px;padding:8px 0;cursor:pointer;min-height:44px}
+.d.done{background:#0f4a3a}.d.sel{outline:2px solid #fff}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.chip{background:var(--c2);color:var(--t);border:0;border-radius:20px;padding:8px 14px;cursor:pointer}
+.chip.on{background:var(--b);color:#06122b}
+input,textarea,select{width:100%;background:var(--bg);color:var(--t);border:1px solid var(--c2);border-radius:10px;padding:10px;font:inherit}
+textarea{min-height:90px}
+.big{font-size:3rem;font-weight:800;text-align:center;font-variant-numeric:tabular-nums}
+.wk{display:flex;gap:6px;align-items:flex-end;height:90px}
+.wk div{flex:1;background:var(--b);border-radius:6px 6px 0 0;min-height:2px}
+label.ck{display:flex;gap:10px;align-items:center;padding:6px 0}
+label.ck input{width:22px;height:22px}
+.tag{display:inline-block;border-radius:8px;padding:2px 8px;font-size:.75rem;color:#06122b}
+@media(min-width:900px){nav{top:0;bottom:auto;right:auto;width:150px;flex-direction:column;border-top:0;border-right:1px solid var(--c2)}nav button{padding:16px}body{padding:0 0 0 150px}}
+</style></head><body>
+<nav id="nav"></nav><main id="app"></main>
+<script>
+const PY=`Install Python & VS Code|Python runs your code; VS Code is where you write it. Check with python --version.|Install both and run print("Hello") from a .py file.
+Variables & data types|A variable names a value. Core types: int, float, str, bool.|Store your name, age, height; print type() of each.
+Input & output|input() reads text, print() shows results, f-strings format them.|Ask name and city, print a greeting with an f-string.
+Type conversion|input() returns str; convert with int(), float(), str().|Add two numbers typed by the user.
+Operators|Arithmetic + - * / // % **, comparisons, and/or/not.|Write a tip and tax calculator for a 5000 PKR bill.
+If / else|Conditions choose which code runs: if, elif, else.|Grade a score 0-100 into A/B/C/F.
+For loops|for repeats over a sequence or range().|Print a 1-12 multiplication table.
+While loops|while repeats until a condition is false; break exits early.|Build a number guessing game.
+Lists|Ordered and changeable: append, remove, slice, sort.|Manage a shopping list; print it sorted and sliced.
+Tuples & sets|Tuples are fixed; sets hold only unique values.|Remove duplicate outlet names with a set.
+Dictionaries|Key-value pairs for fast lookup.|Store SKU prices in a dict; look up and update one.
+Strings|Methods: split, strip, replace, upper, find, join.|Turn "  aLi KHAN " into "Ali Khan".
+Functions|def packages reusable code.|Write is_even() and area() functions.
+Parameters & returns|Default values, keyword arguments, return.|Write a function returning the average of any numbers.
+Scope|Local variables live in a function; global ones outside.|Create a scope bug, then fix it.
+List comprehension|[x*2 for x in nums if x>0] builds lists compactly.|Square all even numbers 1-50 in one line.
+Exception handling|try/except stops crashes on bad input.|Make a number input that retries on error.
+File handling|open() inside 'with' reads and writes files.|Save expenses to a file and read them back.
+Modules & packages|import brings in code; split your own code into files.|Move helpers to utils.py and import them.
+OOP: classes & objects|A class bundles data and methods.|Create a BankAccount class with deposit/withdraw.
+Inheritance|A child class reuses and extends a parent.|Make SavingsAccount inherit BankAccount.
+JSON & APIs|requests fetches data; json parses it.|Call a free public API and print 3 fields.
+NumPy|Fast arrays and vector maths.|Create arrays; compute mean, std; reshape.
+Pandas DataFrames|Tables in Python: read_csv, head, loc, groupby.|Load a CSV and group sales by region.
+Data cleaning|Handle NaN, duplicates and wrong types.|Clean a messy CSV with dropna, fillna, astype.
+Matplotlib|Plot lines, bars, histograms with labels.|Chart monthly sales as a bar chart.
+Decorators & generators|Decorators wrap functions; generators yield lazily.|Write a timing decorator and a number generator.
+SQLite|Built-in database via sqlite3 and SQL.|Create a table, insert rows, query them.
+FastAPI basics|Turn functions into web endpoints.|Build /hello and /sum endpoints.
+Testing & mini project|assert and pytest verify code; combine your skills.|Build a CSV analyzer with tests.`;
+const EX=`Workbook basics|Workbooks hold sheets; sheets hold rows, columns, cells.|Build a 20-row sales sheet with headers.
+Cell references|Relative A1, absolute $A$1, mixed A$1.|Compute totals using one fixed tax-rate cell.
+Formatting|Number formats, tables (Ctrl+T), styles.|Format your sheet as a table with PKR currency.
+Sort & filter|Order and narrow data without changing it.|Filter the top 5 outlets by sales.
+Data validation|Dropdowns and rules prevent bad entries.|Add a region dropdown list.
+SUM, AVERAGE, COUNT|Core aggregates; COUNTA counts non-blanks.|Summarise total, average and entry counts.
+COUNTIF & COUNTIFS|Count by one or several conditions.|Count Lahore outlets with sales above 50k.
+SUMIF & SUMIFS|Add values that match conditions.|Total sales per region and per brand.
+IF & IFS|Return different results by test.|Label outlets Gold/Silver/Bronze.
+AND, OR, IFERROR|Combine tests; hide errors cleanly.|Flag outlets failing two QC rules.
+VLOOKUP|Find a value in a table's first column.|Pull price by SKU code.
+XLOOKUP|Modern lookup in any direction.|Redo yesterday's task with XLOOKUP.
+INDEX & MATCH|Flexible lookup by position.|Look up a value left of the key column.
+Text functions|LEFT, RIGHT, MID, TRIM, TEXTJOIN, SUBSTITUTE.|Split outlet codes into region and number.
+Date & time|TODAY, EOMONTH, DATEDIF, WEEKDAY, TEXT.|Add month, week and ageing columns.
+Conditional formatting|Colour cells by rules; data bars.|Highlight sales below target in red.
+Remove duplicates|Data tab tool plus COUNTIF checks.|Dedupe a customer list on a copy.
+Text to columns & Flash Fill|Split text and let Excel learn patterns.|Split full names and emails into parts.
+Pivot tables|Summarise big data by drag and drop.|Pivot sales by region and month.
+Pivot charts & slicers|Visualise pivots with interactive filters.|Add a brand slicer.
+Advanced filter|Complex criteria; extract unique records.|Extract rows meeting 3 criteria to a new sheet.
+Data cleaning|Standardise text, dates, blanks, duplicates.|Clean a messy export end to end.
+Power Query|Repeatable import and transform steps.|Combine 3 monthly files into one table.
+FILTER, SORT, UNIQUE|Dynamic arrays spill results automatically.|Build a live top-10 outlet list.
+LET|Name values inside formulas for clarity and speed.|Rewrite a long formula using LET.
+KPI cards|Big-number summaries from formulas.|Make cards: total sales, growth, best region.
+Dashboard building|Combine pivots, charts and slicers on one page.|Build a retail sales dashboard.
+Power Pivot basics|Data model with relationships and DAX.|Link sales and outlet tables; add a measure.
+VBA introduction|Macros automate repeated clicks.|Record and edit a macro that formats a report.
+Capstone report|Combine everything into a client-ready report.|Deliver a regional performance report.`;
+const ML=`What is ML?|Models learn patterns from data: supervised vs unsupervised.|List 5 retail ML uses and classify each.
+Algebra & linear equations|Functions and y = mx + c underlie regression.|Plot y = 2x + 3 in Python.
+Mean, median, variance|Centre and spread describe data.|Compute them by hand and with NumPy.
+Probability & distributions|Chance, the normal distribution, sampling.|Simulate 1000 coin flips and plot them.
+Correlation|How two variables move together (-1 to 1).|Find correlations among sales, price, discount.
+Vectors & matrices|Data lives in arrays; dot product is key.|Multiply matrices in NumPy.
+Derivatives & gradients|Slope shows how to reduce error.|Run gradient descent on y = x².
+Data exploration|info, describe, value_counts reveal the data.|Explore a Kaggle CSV; write 5 findings.
+Visualisation with Seaborn|Histograms, boxplots, heatmaps.|Make a correlation heatmap.
+Missing values & outliers|Impute or drop; detect with IQR.|Clean a dataset and justify each choice.
+Feature engineering|Create informative columns from raw ones.|Add date-part and ratio features.
+Encoding & scaling|One-hot encode categories; scale numbers.|Prepare mixed data with scikit-learn.
+Train/test split|Hold out data to test honestly.|Split 80/20 with a random_state.
+Linear regression|Fit a line to predict numbers.|Predict sales from ad spend.
+Multiple regression|Many features; reading coefficients.|Predict house price from 4 features.
+Logistic regression|Predict class probabilities.|Classify churn yes/no.
+Decision trees|Rules learned by splitting data.|Train a tree and plot it.
+Random forest|Many trees voting reduce variance.|Compare a forest with a single tree.
+K-Nearest Neighbors|Predict from the closest examples.|Tune k and plot accuracy.
+Support vector machines|Find the widest separating margin.|Try linear and RBF kernels.
+Naive Bayes|Fast probabilistic classifier, great for text.|Classify short messages as spam or not.
+K-Means clustering|Group unlabeled data into k clusters.|Segment customers; pick k with the elbow.
+Hierarchical clustering & PCA|Dendrograms and dimension reduction.|Reduce data to 2D with PCA and plot.
+Cross-validation|Average over folds for reliable scores.|Run 5-fold CV on two models.
+Tuning & overfitting|GridSearch; spot high variance vs high bias.|Tune a forest; compare train and test scores.
+Evaluation metrics|Confusion matrix, precision, recall, F1, ROC-AUC.|Report every metric for your churn model.
+Gradient boosting & XGBoost|Trees built in sequence fix earlier errors.|Try to beat your forest with XGBoost.
+Deployment|Serve models with Streamlit or FastAPI.|Run a prediction form locally.
+Capstone: price & churn|End to end: data to deployed model.|Publish one project on GitHub with a README.`;
+const Q=`Show up today; tomorrow's skill is built from today's hour.|You don't need more time, you need this hour used well.|Discipline is choosing what you want most over what you want now.|One lesson finished beats ten lessons planned.|Every expert once typed their first print("Hello").|Progress, not perfection.|Your phone can wait; your future cannot.|Hard today, easy tomorrow.|Consistency turns ordinary days into extraordinary skill.|Start before you feel ready.|Bugs are lessons in disguise.|You are building the person your career needs.|Focus for 25 minutes. That is all this moment asks.|Skills are the one salary no one can cut.|Be proud of your streak, never afraid to restart.|Curiosity compounds like interest.|Do it badly, then do it better.|The work you avoid is usually the work that grows you.|Today's effort is a gift to your future self.|Strong habits make strong engineers.|Don't compare your day 5 to someone's year 5.|Finishing what you start is the rarest skill.|Every solved exercise is proof you can learn anything.|Quiet, steady work makes the loudest results.|Your goals deserve your best hour, not your leftover one.|Mistakes mean you're moving.|Build something real; confidence follows.|You're closer than yesterday. Keep going.|Master the basics and the advanced becomes natural.|Day by day, you're becoming dangerous with data.`.split('|');
+const L=[PY,EX,ML].map(s=>s.split('\n').map(l=>l.split('|')));
+const N=['Python','Excel','Machine Learning'],C=['#3b9eff','#2ee59d','#c58bff'];
+const PJ=[[0,'Calculator','Build a command-line calculator with functions.'],[0,'Expense tracker','Save and total expenses in a CSV file.'],[0,'CSV data analyzer','Load a CSV and report totals and charts.'],[0,'API integration','Fetch and display data from a public API.'],[1,'Sales dashboard','Pivot charts and KPI cards for sales.'],[1,'Regional performance report','Compare regions against targets.'],[1,'Inventory analysis','Find slow and fast moving stock.'],[1,'QC reporting dashboard','Track quality-check pass rates.'],[2,'House price predictor','Regression on house features.'],[2,'Customer churn model','Classify who will leave.'],[2,'Sales forecasting','Predict next months of sales.'],[2,'Customer segmentation','Cluster customers with K-Means.']];
+const STEPS=['Understand the problem and expected output','Plan the steps and gather data','Build the first working version','Test with real data and fix bugs','Document it and share it'];
+const HAB=['Exercise','Prayers','Slept on time','No extra scrolling','No extra YouTube'];
+const $=s=>document.querySelector(s),T=()=>new Date().toISOString().slice(0,10);
+const esc=s=>(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;');
+let S=Object.assign({done:{},notes:{},bm:{},hard:{},xp:0,log:{},hab:{},jr:{},cs:Date.now()-22*864e5,pj:{},dd:{},tg:120},JSON.parse(localStorage.sf||'{}'));
+const save=()=>localStorage.sf=JSON.stringify(S);
+const day=d=>({t:(d-1)%3,l:L[(d-1)%3][(d-1)/3|0]});
+let view='home',sel=1,filt=-1,q='';
+const tm={mode:25,left:1500,run:false,subj:0,iv:null};
+const nd=()=>Object.keys(S.done).length;
+const prog=t=>Math.round(Object.keys(S.done).filter(d=>(d-1)%3==t).length/30*100);
+const cur=()=>{for(let d=1;d<=90;d++)if(!S.done[d])return d;return 90};
+const clean=()=>Math.max(0,Math.floor((Date.now()-S.cs)/864e5));
+const secs=(k)=>(S.log[k]||[0,0,0]).reduce((a,b)=>a+b,0);
+const streak=()=>{let n=0,d=new Date();if(!S.dd[T()])d.setDate(d.getDate()-1);while(S.dd[d.toISOString().slice(0,10)]){n++;d.setDate(d.getDate()-1)}return n};
+const lvl=()=>Math.floor(S.xp/300)+1;
+const bar=(p,c)=>`<div class=bar><i style="width:${p}%;background:${c}"></i></div>`;
+const cnt=t=>Object.keys(S.done).filter(d=>(d-1)%3==t).length;
+const badges=()=>[['Python Beginner',cnt(0)>=5],['Excel Formula Master',cnt(1)>=15],['Data Explorer',cnt(0)>=25&&cnt(2)>=8],['ML Practitioner',cnt(2)>=20],['7-Day Consistency',streak()>=7],['30-Day Discipline',clean()>=30],['90-Day Finisher',nd()>=90]];
+function go(v,d){view=v;if(d)sel=d;render();scrollTo(0,0)}
+function toggle(d){if(S.done[d]){delete S.done[d];S.xp=Math.max(0,S.xp-50)}else{S.done[d]=T();S.xp+=50;S.dd[T()]=1;if([30,60,90].includes(nd()))alert('Milestone: '+nd()+' days complete. Excellent work!')}save();render()}
+function nav(){$('#nav').innerHTML=[['home','🏠','Home'],['days','📚','Days'],['timer','⏱️','Timer'],['self','🌱','Self'],['proj','🛠️','Projects'],['data','💾','Data']].map(a=>`<button class="${view==a[0]?'on':''}" onclick="go('${a[0]}')"><b>${a[1]}</b>${a[2]}</button>`).join('')}
+function lesson(d){const x=day(d),l=x.l;return `<div class=card><span class=tag style="background:${C[x.t]}">${N[x.t]}</span> <span class=sub>Day ${d} of 90</span><h2>${l[0]}</h2>
+<p class=q>${Q[(d-1)%30]}</p>
+<h3>Learning objective</h3><p>Explain "${l[0]}" in your own words and apply it in today's task.</p>
+<h3>Simple explanation</h3><p>${l[1]}</p>
+<h3>Real-world task</h3><p>${l[2]}</p>
+<h3>Self-check</h3><p class=sub>Close the lesson and explain "${l[0]}" out loud or in your notes. If you can, mark it complete.</p>
+<h3>Expected outcome</h3><p>You can use this skill without looking it up and have finished the task above.</p>
+<h3>My notes</h3><textarea oninput="S.notes[${d}]=this.value;save()">${esc(S.notes[d])}</textarea>
+<div class=chips><button class=btn onclick="toggle(${d})">${S.done[d]?'✓ Completed (tap to undo)':'Mark as complete'}</button>
+<button class="chip" onclick="S.bm[${d}]=!S.bm[${d}];save();render()">${S.bm[d]?'★ Bookmarked':'☆ Bookmark'}</button>
+<button class="chip" onclick="S.hard[${d}]=!S.hard[${d}];save();render()">${S.hard[d]?'⚑ Marked difficult':'⚐ Mark difficult'}</button></div></div>`}
+function render(){nav();const a=$('#app');
+if(view=='home'){const c=cur(),l=day(c).l;a.innerHTML=`<h1>SkillForge 90</h1><p class=sub>Build Skills. Build Discipline.</p>
+<p>Welcome back, Shabir. Today is your Day ${c}.</p><p class=q>${Q[(c-1)%30]}</p>
+<div class=grid>${[['Day',c+'/90'],['Study today',Math.round(secs(T())/60)+'/'+S.tg+' min'],['Total hours',(Object.keys(S.log).reduce((s,k)=>s+secs(k),0)/3600).toFixed(1)],['Lessons',nd()+'/90'],['Overall',Math.round(nd()/90*100)+'%'],['Study streak',streak()+' d'],['Clean streak',clean()+' d'],['Level '+lvl(),S.xp+' XP']].map(s=>`<div class="card stat"><span class=sub>${s[0]}</span><b>${s[1]}</b></div>`).join('')}</div>
+<div class=card><h3>Today's learning task</h3><p><b>${l[0]}</b> (${N[day(c).t]})</p><p>${l[2]}</p><button class=btn onclick="go('days',${c})">Continue Learning</button></div>
+${N.map((n,i)=>`<div class=card><h3 style="color:${C[i]}">${n}</h3><span class=sub>${cnt(i)}/30 lessons · ${prog(i)}%</span>${bar(prog(i),C[i])}</div>`).join('')}
+<h2>Badges</h2><div class=chips>${badges().map(b=>`<span class=chip style="${b[1]?'background:var(--g);color:#06122b':'opacity:.5'}">${b[1]?'🏅':'🔒'} ${b[0]}</span>`).join('')}</div>`}
+else if(view=='days'){const list=[];for(let d=1;d<=90;d++){const x=day(d);if(filt>=0&&x.t!=filt)continue;if(q&&!(x.l[0]+x.l[1]).toLowerCase().includes(q))continue;list.push(d)}
+a.innerHTML=`<h1>90-Day Plan</h1><input placeholder="Search lessons" value="${esc(q)}" oninput="q=this.value.toLowerCase();render()" autofocus>
+<div class=chips>${['All Subjects',...N].map((n,i)=>`<button class="chip ${filt==i-1?'on':''}" onclick="filt=${i-1};render()">${n}</button>`).join('')}</div>
+<div class=days>${list.map(d=>`<button class="d ${S.done[d]?'done':''} ${d==sel?'sel':''}" style="border-color:${C[day(d).t]}" onclick="sel=${d};render()">${d}${S.bm[d]?'★':''}${S.hard[d]?'⚑':''}</button>`).join('')||'<p class=sub>No lessons match.</p>'}</div>${lesson(sel)}`;if(q)$('input').setSelectionRange(q.length,q.length)}
+else if(view=='timer'){const w=[...Array(7)].map((_,i)=>{const d=new Date();d.setDate(d.getDate()-6+i);return secs(d.toISOString().slice(0,10))/60});const mx=Math.max(...w,1);
+a.innerHTML=`<h1>Study Timer</h1><div class=card><div class=chips>${[[25,'Pomodoro 25'],[5,'Break 5'],[50,'Deep work 50']].map(m=>`<button class="chip ${tm.mode==m[0]?'on':''}" onclick="setMode(${m[0]})">${m[1]}</button>`).join('')}</div>
+<select onchange="tm.subj=+this.value">${N.map((n,i)=>`<option value=${i} ${tm.subj==i?'selected':''}>${n}</option>`).join('')}</select>
+<div class=big id=clk></div><div class=chips><button class=btn onclick="runT()">Start / Pause</button><button class="btn alt" onclick="setMode(tm.mode)">Reset</button></div></div>
+<div class=card><h3>Daily target (minutes)</h3><input type=number value=${S.tg} onchange="S.tg=+this.value||120;save()"><p class=sub>Today: ${Math.round(secs(T())/60)} min studied. Focus time is recorded automatically.</p></div>
+<div class=card><h3>Last 7 days (minutes)</h3><div class=wk>${w.map(m=>`<div title="${Math.round(m)}" style="height:${m/mx*100}%"></div>`).join('')}</div><p class=sub>Week total: ${Math.round(w.reduce((a,b)=>a+b,0))} min</p></div>`;clk()}
+else if(view=='self'){const k=T(),h=S.hab[k]||[];
+a.innerHTML=`<h1>Self-Mastery</h1><div class="card stat"><span class=sub>Clean-day streak</span><b>${clean()} days</b>
+<p class=sub>If you slip, nothing is lost: what you built still counts. Restart today and keep going.</p>
+<label class=sub>Start date</label><input type=date value="${new Date(S.cs).toISOString().slice(0,10)}" onchange="S.cs=new Date(this.value).getTime();save();render()">
+<div class=chips><button class="chip" onclick="if(confirm('Restart the count from today? That is okay and brave.')){S.cs=Date.now();save();render()}">Restart today</button></div></div>
+<div class=card><h3>Today's habits</h3>${HAB.map((n,i)=>`<label class=ck><input type=checkbox ${h.includes(i)?'checked':''} onchange="hab(${i})">${n}</label>`).join('')}</div>
+<div class=card><h3>Private journal</h3><p class=sub>Triggers, wins, reflections. Stays on this device only.</p><textarea oninput="S.jr[T()]=this.value;save()">${esc(S.jr[k])}</textarea></div>`}
+else if(view=='proj'){a.innerHTML='<h1>Project Lab</h1>'+PJ.map((p,i)=>`<div class=card><h3 style="color:${C[p[0]]}">${p[1]}</h3><p class=sub>${p[2]}</p>${STEPS.map((s,j)=>`<label class=ck><input type=checkbox ${S.pj[i+'-'+j]?'checked':''} onchange="S.pj['${i}-${j}']=this.checked;if(this.checked)S.xp+=10;save()">${s}</label>`).join('')}</div>`).join('')}
+else{a.innerHTML=`<h1>Data</h1><div class=card><p class=sub>Everything is saved on this device automatically.</p><div class=chips><button class=btn onclick="exp()">Export backup (JSON)</button><button class="btn alt" onclick="$('#f').click()">Import backup</button><button class="chip" onclick="if(confirm('Delete ALL progress? This cannot be undone.')){localStorage.removeItem('sf');location.reload()}">Reset progress</button></div><input id=f type=file accept=.json hidden onchange="imp(this)"></div>`}}
+function hab(i){const k=T(),h=S.hab[k]||[];S.hab[k]=h.includes(i)?h.filter(x=>x!=i):[...h,i];save()}
+function exp(){const b=new Blob([JSON.stringify(S)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='skillforge90-backup-'+T()+'.json';a.click()}
+function imp(i){const r=new FileReader();r.onload=()=>{try{S=Object.assign(S,JSON.parse(r.result));save();alert('Backup restored');render()}catch(e){alert('That file is not a valid backup.')}};r.readAsText(i.files[0])}
+function clk(){const e=$('#clk');if(e)e.textContent=String(Math.floor(tm.left/60)).padStart(2,'0')+':'+String(tm.left%60).padStart(2,'0')}
+function setMode(m){clearInterval(tm.iv);tm.run=false;tm.mode=m;tm.left=m*60;save();render()}
+function runT(){if(tm.run){clearInterval(tm.iv);tm.run=false;save();return}tm.run=true;tm.iv=setInterval(()=>{tm.left--;if(tm.mode!=5){const k=T();S.log[k]=S.log[k]||[0,0,0];S.log[k][tm.subj]++;if(tm.left%15==0)save()}clk();if(tm.left<=0){clearInterval(tm.iv);tm.run=false;if(tm.mode!=5)S.xp+=20;save();alert(tm.mode==5?'Break over. Ready?':'Session done! +20 XP. Take a break.')}},1000)}
+render();
+if('serviceWorker' in navigator)navigator.serviceWorker.register('service-worker.js').catch(()=>{});
+</script></body></html>
